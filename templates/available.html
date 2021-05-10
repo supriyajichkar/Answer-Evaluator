@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    body{
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+    <h2>Hi, {{request.user.first_name}} <span style='font-size:20px;'>@{{request.user.username}}</span></h2>
+    <a href={% url 'logout' %}><button class="btn btn-danger">Logout</button></a>
+        <div class="jumbotron" style="margin-top: 50px;">
+            <h2>Available Tests:</h2>
+            {% for obj in objects %}
+              {% if obj in yet %}
+                <div style='margin: 20px; padding: 20px; background: white;'>
+                    <h3><b>{{obj.test_Name}}</b></h3>
+                    Not started yet
+                    <h3>Starts At:</h3><p>{{obj.start_time}}</p>
+                    <button data-toggle="tooltip" data-placement="right" title="Not Started yet" class='btn btn-primary' disabled>Start Now</button>
+                </div>
+              {% else %}
+                <div style='margin: 20px; padding: 20px; background: white;'>
+                    <h3><b>{{obj.test_Name}}</b></h3>
+                    <h3>Starts At:</h3><p>{{obj.start_time}}</p>
+                    <a href='{% url 'test' obj.id %}'><button class='btn btn-primary'>Start Now</button></a>
+                </div>
+              {% endif %}
+                
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+
+</script>
+</body>
+</html>
